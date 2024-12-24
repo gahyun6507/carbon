@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        google() // Google Maven 저장소
+        mavenCentral() // 중앙 Maven 저장소
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.2' // Android Gradle 플러그인
+        classpath 'com.google.gms:google-services:4.3.15' // Firebase 플러그인
+    }
+}
+
+allprojects {
+    repositories {
+        google() // Google Maven 저장소
+        mavenCentral() // 중앙 Maven 저장소
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
